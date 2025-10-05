@@ -1,0 +1,330 @@
+* {
+    font-family:'Microsoft YaHei',sans-serif;
+}
+p {
+    font-size:15px;
+}
+h1 {
+    font-size:35px;
+    text-align:center;
+    color:rgb(231, 16, 16);
+    background-image: url(logo.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    text-indent:-9999px;
+    width:1000px;
+    height:600px;
+    margin:0 auto;
+    display:block;
+    opacity:0.6;
+    z-index:-99999;
+}
+header {
+    text-align:center;
+    font-size: 15px;
+    color:white;
+}
+nav {
+    position: relative; /*方便伪元素（图片）定位*/
+    z-index: 1;         /*设置main的层级为1 使其位于伪元素上方*/
+    height:120px;
+    width:100%;
+    font-size:25px;
+    color:white;
+}
+nav::before {
+    content: "";        /*生成一个空内容的伪元素*/
+    position: absolute; /*让伪元素绝对定位于main内部*/
+    inset: 0;           /*让伪元素铺满整个main*/
+    background: url(花海1.jpg) center/cover no-repeat;
+    opacity: 0.7; /* 这里设置图片透明度 */ 
+    z-index: -1;
+}
+main {
+    position: relative;
+    z-index: 1;
+    color:white;
+}
+main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url(背景图3.jpg) center/cover no-repeat;
+    opacity: 0.7; /* 这里设置图片透明度 */
+    z-index: -1;
+}
+blockquote {
+    font-size:40px;
+    margin-top:30px;
+    margin-bottom:60px;
+    color:white;
+}
+* {
+    margin:0;
+    padding:0;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+}
+main a{
+    color:white;
+    text-decoration:none;
+}
+nav li{
+    display:inline;
+    margin-right:11vw;
+   
+}
+nav ul{
+    position:absolute;
+    top:0;
+    line-height:120px;
+    left:10vw;
+}
+main li{
+    display:inline;
+    margin-right:20px;
+}
+main ul{
+    top:150px;
+    line-height:30px;
+    left:10vw;
+}
+.section2{
+    margin-top:20px;
+}
+body {
+    position:relative;
+    z-index:-1;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background: url(玫瑰工厂可用背景图.jpg) center/cover no-repeat;
+    z-index:-9999;
+    opacity:1;
+    pointer-events:none;
+}
+
+body a {
+    color:white;
+    text-decoration:none;
+}
+.modal {
+    display: none;
+    position:fixed;
+    top:0;left:0;bottom:0;right:0;
+    background:rgba(0,0,0,0.5);
+    z-index:9999;
+    justify-content:center;
+    align-content: center;
+}
+.book {
+    position:relative;
+    width:750px;
+    height:500px;
+    top:22.5%;
+    background:url(玫瑰工厂怪物书背景图.jpg) center/cover no-repeat;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.5);
+    overflow:hidden;
+    border-radius:10px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    z-index:100000000;
+}
+.book-page {
+    width:90%;
+    height:90%;
+    background: url(玫瑰工厂怪物书背景图.jpg) center/cover no-repeat;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+    border-radius:10px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    font-size:30px;
+    text-align:center;
+    transition:background 0.5s,opacity 0.5s;
+    margin-top:-250px;
+    padding:0;
+    flex-direction:column;
+    z-index: 10001;
+    position: relative;
+    line-height:6.5;
+}
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url(玫瑰图.jpg) center/cover no-repeat;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    opacity: 0.8;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 2;
+    color:transparent;
+}
+.prev {
+    left: 0;   /* 靠左侧 */
+}
+.next {
+    right: 0;  /* 靠右侧 */
+}
+.modal {
+    z-index: 9999;
+}
+.prev, .next {
+    z-index: 10002;
+    position: absolute;
+}
+
+/* block容器居中 */
+.block-container {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0; height: 0;
+    pointer-events: none;
+    z-index: 1000;
+    background:rgba(0,0,0,0.5);
+}
+
+.block {
+    position:absolute;
+    width:260px;
+    height:180px;
+    background:url(核心规则内容背景图.jpg) center/cover no-repeat;
+    border:rgb(88, 1, 1) 2px solid;
+    border-radius:16px;
+    box-shadow:0 8px 16px rgba(0,0,0,0.15);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: center;
+    align-items:flex-start;/*图片和内容顶部对齐*/
+    transition:all 1s cubic-bezier(.68,-0.55,.27,1.55);
+    top:0;left:0;/*初始位置在block-container中心 且初始不可见*/
+    opacity:0;
+    font-size:18px;
+    text-align:left;
+    padding:12px;
+    gap:6px;/*说明与图片之间的距离*/
+    z-index:1001;
+}
+
+.block1.active {
+    left:300px;
+    top:-200px;
+    opacity:1;
+    margin-top:20px;
+}
+
+.block2.active {
+    left:-500px;
+    top:-20px;
+    opacity:1;
+}
+
+.block3.active {
+    left:-1000px;
+    top:100px;
+    opacity:1;
+}
+
+.block-img {
+    width:80px;
+    height:80px;
+    object-fit:contain;/*图片呢完整显示 不裁剪*/
+    border-radius:8px;
+    flex-shrink:0;/*图片不裁剪*/
+    margin-right:8px;
+    margin-top:2px;
+    align-items:center;
+    justify-content: center;
+}
+
+.block-info {
+    text-align:center;
+    flex-direction:column;
+}
+
+.block-title {
+    font-weight:bold;
+    font-size:24px;
+    margin-bottom:8px;
+    text-align:center;
+}
+
+.block-desc {
+    font-size:18px;
+    color:#fff;
+    margin-bottom:8px;
+    word-break:break-all;/*长语句自动换行*/
+}
+
+.game-modal {
+    position:fixed;
+    top:0;left:0;
+    background:rgba(0,0,0,0.5);
+    width:100vw;height:100vh;
+    display:none;
+    border:none;
+    border-radius:8px;
+    justify-content:center;
+    align-items:center;
+    z-index:10000;
+}
+
+.game-modal-content {
+    background:rgba(0,0,0,0);
+    text-align:center;
+    color:white;
+    font-size:30px;
+    justify-content:center;
+    align-items:center;
+    border:none;
+    position:relative;
+    min-width:300px;
+    height:250px;
+    display:flex;
+}
+
+.reward-modal {
+    position:fixed;
+    top:0;left:0;width:100vw;height:100vh;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:10001;
+}
+
+.reward-content {
+    background:url(通关奖励背景图.jpg) center/cover no-repeat;
+    min-width:320px;min-height:180px;
+    border-radius:18px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.25);
+    color:rgb(51, 3, 3);
+    padding:40px 32px;
+    text-align:center;
+    font-size:26px;
+    position:relative;
+    z-index:100003;
+    justify-content:center;
+    align-items:center;
+    display:flex;
+    flex-direction:column;
+}
+
+.reward-fireworks {
+    position:absolute;
+    top:0;left:0;width:100%;height:100%;
+    pointer-events:none;
+    z-index:100002;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>核心规则</title>
+    <link rel="stylesheet" href="rules.css">
+</head>
+<body>
+    <main>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <span class="dropbtn-text">核心规则</span>
+            </button>
+            <div class="dropdown-content">
+                <p class="rule-item" data-title="主线任务" data-content="72小时内从“采花工升为“厂长” 掌握玫瑰干叶瓦斯的核心配方 找到破解香水成瘾的药">主线任务</p>
+                <p class="rule-item" data-title="怪物与危险机制" data-content="玫瑰傀儡：由异化工人与玫瑰藤蔓融合而成，被触碰皮肤长出玫瑰刺，精神值持续下降；糜烂员工：工厂的高阶怪物，身体如盛开的玫瑰般裂开，能操控周围的玫瑰藤蔓发起攻击；厂长幽灵：副本最终
+                    BOSS，实为初代厂长的怨念集合体，仅在午夜后出现在核心调香室，持有“特级香水”，可瞬间污染玩家精神值">怪物与危险机制</p>
+                <p class="rule-item" data-title="玩家互动规则" data-content="允许合作或背叛 击杀其他玩家可掠夺其收集的玫瑰">玩家互动规则</p>
+                <p class="rule-item" data-title="生存规则" data-content="香水是生存关键 低级香水可恢复精神值 中级香水能暂时压制怪物 高级香水则是晋升的必要道具 但过度使用会加速异化">生存规则</p>
+            </div>
+        </div>
+        <!-- 弹窗结构 -->
+        <div id="ruleModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="ruleTitle"></h2>
+                <div id="ruleContent"></div>
+            </div>
+        </div>
+    </main>
+    <script src="rules.js"></script>
+</body>
+</html>
+

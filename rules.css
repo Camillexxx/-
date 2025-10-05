@@ -1,0 +1,144 @@
+body::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-9999;
+    pointer-events:none;
+    opacity:1;
+    background:url(核心规则背景图.jpg) center/cover no-repeat;
+}
+
+
+.dropbtn {
+    position:fixed;
+    top:35%;
+    left:38%;
+    width:400px;
+    height:150px;
+    padding:10px 24px;
+    border:rgb(1, 77, 1) 2px solid;
+    border-radius:8px;
+    color:white;
+    font-size:25px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+    cursor:pointer;
+    transition:background 0.3s;
+} 
+
+.dropbtn::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url(核心规则背景图.jpg) center/cover no-repeat;
+    opacity:0.7;
+    pointer-events:none;
+    z-index:1;
+}
+
+.dropbtn-text {
+    position:relative;
+    z-index:2;
+}
+
+.dropdown:hover {
+    background-color:red;
+}
+
+.dropdown {
+    position:fixed;
+    top:15%;
+    left:53.5%;
+}
+
+.rule-item {
+    padding-left:10px;
+}
+
+.dropdown-content {
+    display:none;
+    position:absolute;
+    width:770px;
+    height:100px;
+    box-shadow:0 8px 16px rgba(0,0,0,0.15);
+    border:rgb(0, 61, 0) 2px solid;
+    border-radius:8px;
+    z-index:13;
+    flex-direction:row;
+    align-items:center;
+    gap:100px;
+    background:rgba(0,0,0,0);
+    color:white;
+    font-size:20px;
+    overflow:hidden;
+}
+
+.dropdown-content::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(255,255,255,0.15);
+    pointer-events:none;
+    z-index:11;
+}
+
+.dropdown-content > * {
+    position:relative;
+    z-index:12;
+}
+
+.dropdown-content.show {
+    display: flex!important;
+}
+
+.modal {
+    position:fixed;
+    top:0px;bottom:0px;left:0px;right:0px;
+    background:rgba(0,0,0,0.7);
+    box-shadow:0 8px 16px rgba(0,0,0,0.5);
+    border:none;
+    border-radius:8px;
+    z-index:14;
+    justify-content:center;
+    align-items:center;
+}
+
+.rule-item {
+    cursor:pointer;
+}
+
+.modal-content {
+    background:url(核心规则按钮背景图.jpg) center/cover no-repeat;
+    border:white 2px solid;
+    border-radius:8px;
+    box-shadow:0 8px 16px rgba(0,0,0,0.5);
+    width:80vw;
+    height:10vw;
+    position:relative;
+    padding:20px;
+    text-align:center;
+    font-size:20px;
+    color:rgb(124, 4, 4);
+    z-index:15;
+}
+
+.modal-content::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(255,255,255,0.3);
+    pointer-events:none;
+    z-index:13;
+}
+
+.modal-content > * {
+    position:relative;
+    z-index:14;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color:transparent;
+}

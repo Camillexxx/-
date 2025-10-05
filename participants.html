@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人物介绍</title>
+    <style>
+        body {
+            margin:0;
+            background:url(人物介绍背景图.jpg) center/cover no-repeat;
+            font-family:"微软雅黑",Arial,sans-serif;
+        }
+
+        .participants-container {
+            display:flex;
+            gap:180px;
+            justify-content:center;
+            align-items:center;
+            min-height:80vh;
+            background:rgba(255,255,255,0.2);
+            border:white 2px solid;
+            border-radius:16px;
+        }
+
+        .participants-card {
+            width:250px;height:100vh;
+            padding:24px;
+            box-shadow:0 8px 16px rgba(0,0,0,0.5);
+            border:white 2px solid;
+            border-radius:16px;
+            text-align:center;
+            display:flex;
+            cursor:pointer;
+            background:url(人物介绍背景图.jpg) center/cover no-repeat;
+            transition:transform 0.4s,box-shadow 0.4s;
+            transform:translateY(60px) scale(0.95);
+            opacity:0;
+            animation:cardIn 1s forwards; 
+        }
+
+        .participants-card h2 {
+            font-size:28px;
+            margin:12px 0 8px 0;
+            color:white;
+            writing-mode:vertical-rl;
+            text-orientation:mixed;
+            letter-spacing:2px;
+            line-height:2; 
+        }
+
+        .participants-card p {
+            color:rgb(255, 255, 255);
+            font-size:22px;
+            margin:4px 0;
+            writing-mode:vertical-rl;
+            text-orientation:mixed;
+            letter-spacing:2px;
+            line-height:2; 
+        }
+
+        .participants-card h2,p {
+            padding-left:-20px;
+        }
+
+        @keyframes cardIn {
+            to {
+                opacity:1;
+                transform:translateY(0) scale(1);
+            }
+        }
+
+        .card-modal {
+            position:fixed;
+            top:0;left:0;width:100vw;height:100vh;
+            background:rgba(0,0,0,0.5);
+            display:none;
+            justify-content:center;
+            align-items:center;
+            z-index:9999;
+            animation:fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity:0;}
+            to {opacity:1;}
+        }
+
+        .card-modal-content {
+            background:url(人物介绍背景图2.jpg) center/cover no-repeat;
+            border-radius:20px;
+            box-shadow:0 12px 48px rgba(0,0,0,0.5);
+            padding:32px 28px;
+            min-width:350px;
+            min-height:480px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            animation:cardZoomIn 05s;
+        }
+
+        @keyframes cardZoomIn {
+            from {transform:scale(0.3);opacity:0;}
+            to {transform:scale(1);opacity:1;}
+        }
+
+        .card-modal-content img {
+            width:160px;
+            height:100px;
+            border-radius:8px;;
+            margin-bottom:16px;
+            object-fit:cover;
+        }
+
+        .card-modal-content h2 {
+            font-size:30px;
+            margin:12px 0 8px 0;
+            color:rgb(241, 241, 241);
+        }
+
+        .card-modal-content p {
+            color:rgb(216, 45, 45);
+            font-size:24px;
+            margin:4px 0;
+        }
+
+        .card-modal-content h2,p {
+            line-height:70px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="participants-container">
+        <div class="participants-card" id="participants-card1" data-index="0">
+            <h2>白柳</h2>
+            <p>身份：流浪马戏团会长 战术师</p>
+            <p>技能身份：邪神的继承人</p>
+            <p>技能道具：皮革手套</p>
+            <p>“关于这个，我已经想好了。就叫--流浪马戏团”</p>
+        </div>
+        <div class="participants-card" id="paticipants-card2" data-index="1">
+            <h2>刘佳仪</h2>
+            <p>身份：流浪马戏团控制位 备用战术师</p>
+            <p>技能身份：被诅咒的禁忌女巫</p>
+            <p>技能道具：毒药和解药喷物瓶</p>
+            <p>“女巫说，今晚是个平安夜”</p>
+        </div>
+        <div class="participants-card" id="participants-card3" data-index="2">
+            <h2>唐二打</h2>
+            <p>身份：流浪马戏团主攻手</p>
+            <p>技能身份：凋谢的玫瑰猎手</p>
+            <p>技能道具：左轮手枪</p>
+            <p>“他的一切痛苦，主攻手都必须全力承担”</p>
+        </div>
+             <!---遮挡弹窗--->
+        <div class="card-modal" id="card-modal">
+            <div class="card-modal-content" id="card-modal-content"></div>
+        </div>
+    
+<script >
+    document.querySelectorAll('.participants-card').forEach((card,i)=>{
+        card.style.animationDelay=(i*0.3)+'s';
+    })
+
+    const cards=document.querySelectorAll('.participants-card');
+    const modal=document.getElementById('card-modal');
+    const modalContent=document.getElementById('card-modal-content');
+    let currentIndex=0;
+
+    const modalContents=[
+        {
+            img:"人物介绍-白柳.jpg",
+            title:"白柳",
+            desc:"异端0006/贫穷的流浪汉",
+            extra:"“你把你的灵魂 生命 和爱给我，我把我的愿望 信仰和爱给你”"
+        },
+        {img:"人物介绍-刘佳仪.jpg",
+            title:"刘佳仪",
+            desc:"异端0601/女巫",
+            extra:"“我有一瓶毒药和一瓶解药”"},
+        {img:"人物介绍-唐二打.jpg",
+            title:"唐二打",
+            desc:"异端0002/凋谢的玫瑰猎人",
+            extra:"“有人拿着镌刻着玫瑰花的银色枪支，往他的宿命的终点走去”"}
+        ];
+
+    function showCard(index) {
+        const data=modalContents[index];
+        modalContent.innerHTML=`
+            <img src="${data.img}" alt="${data.title}">
+            <h2> ${data.title}</h2>
+            <p> ${data.desc}</p>
+            <p> ${data.extra}</p>
+        `;      
+            
+        //重新触发动画
+        modalContent.style.animation='none';
+        void modalContent.offsetWidth;//强制重绘
+        modalContent.style.animation='cardZoomIn 0.5s';
+        modal.style.display='flex';
+        currentIndex=index;
+    }
+
+    cards.forEach((card,i)=>{
+        card.onclick=()=>showCard(i);
+    })
+
+    modal.onclick=function(e) {
+        if (e.target===modal) {
+            modal.style.display='none';
+            if (currentIndex<cards.length-1) {
+                setTimeout(()=>showCard(currentIndex+1),400)//退场后展示下一个
+            }
+        }
+    }
+
+
+</script>    
+</body>
+</html>

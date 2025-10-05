@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>背景还原</title>
+    <style>
+        body {
+            background:url(玫瑰工厂背景图.jpg) center/cover no-repeat;
+            margin:0;
+            width:100vw;
+            height:100vh;
+            overflow:hidden;
+        }
+
+        body::before {
+            content:"";
+            position:fixed;
+            inset:0;
+            z-index:1;
+            pointer-events:none;
+            background:rgba(0,0,0,0);
+        }
+        .back-modal {
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+        .modal-content {
+            position: relative;
+            width: 600px;
+            min-height: 200px;max-height:500px;
+            background: url(玫瑰工厂背景图.jpg) center/cover no-repeat;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+            border: rgb(71, 3, 3) 2px solid;
+            border-radius: 16px;
+            padding: 20px;
+            color: rgb(112, 12, 12);
+            text-align: center;
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index:12;
+        }
+
+        .modal-content::before {
+            content:"";
+            position:absolute;
+            inset:0;
+            z-index:10;
+            pointer-events:none;
+            background:rgba(255,255,255,0.4);
+            border-radius:16px;
+        }
+
+        .modal-content >* {
+            position:relative;
+            z-index:11;
+        }
+        #back-next {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            border: black 1px solid;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            z-index: 10000;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="back-modal" id="background" style="display:flex;">
+        <div class="modal-content">
+            <div id="back-text"></div>
+            <button id="back-next">下一句</button>
+        </div>
+    </div>
+    <script>
+        const BackText = [
+            "玫瑰工厂的起源与初代厂长张某有关。",
+            "张某出身福利院，因贪婪和对力量的渴望，从福利院偷走邪神雕像（塔维尔），将其心脏作为核心装置，培育出成瘾性极强的“玫瑰干叶瓦斯”香水。",
+            "香水通过“免费推广-垄断市场-添加剥削”套路席卷全球，使用者逐渐异化，反抗者被当作“试香纸”折磨致死，或沦为依赖香水生存的流民。",
+            "工厂将反抗者的痛苦转化为香水生产的“养分”。",
+            "塔维尔的心脏被囚禁于玻璃容器中，通过管道连接工厂，既是香水能量源，也是污染源头。",
+            "其肢体碎片散落在花田与工厂角落，暗示着邪神被肢解的真相。",
+            "玫瑰工厂的起源与初代厂长张某有关。张某出身福利院，因贪婪和对力量的渴望，从福利院偷走邪神雕像（塔维尔），将其心脏作为核心装置，培育出成瘾性极强的“玫瑰干叶瓦斯”香水。香水通过“免费推广-垄断市场-添加剥削”套路席卷全球，使用者逐渐异化，反抗者被当作“试香纸”折磨致死，或沦为依赖香水生存的流民。工厂将反抗者的痛苦转化为香水生产的“养分”。塔维尔的心脏被囚禁于玻璃容器中，通过管道连接工厂，既是香水能量源，也是污染源头。其肢体碎片散落在花田与工厂角落，暗示着邪神被肢解的真相。"
+        ];
+
+        let bgIndex = 0;
+        let bgChar = 0;
+        let bgTimer = null;
+
+        function showbgText() {
+            const text = BackText[bgIndex];
+            const container = document.getElementById('back-text');
+            container.innerHTML = "";
+            bgChar = 0;
+            clearTimeout(bgTimer);
+
+            function typeWriter() {
+                if (bgChar < text.length) {
+                    container.innerHTML += text.charAt(bgChar);
+                    bgChar++;
+                    bgTimer = setTimeout(typeWriter, 60);
+                }
+            }
+            typeWriter();
+
+            //控制按钮显示/隐藏
+            if (bgIndex>=BackText.length-1) {
+            document.getElementById('back-next').style.display='none';
+            } else {
+            document.getElementById('back-next').style.display = 'block';
+            }
+        }
+
+        // 页面加载后自动显示第一段
+        window.onload = function() {
+            showbgText();
+        };
+
+        // 下一段
+        document.getElementById('back-next').onclick = function(e) {
+            e.stopPropagation();
+            if (bgIndex < BackText.length - 1) {
+                bgIndex++;
+                showbgText();
+            }
+        };
+
+        // 点击背景关闭页面（可选，如果你希望关闭后跳转主页可加 window.close() 或 location.href）
+        document.getElementById('background').onclick = function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                clearTimeout(bgTimer);
+            }
+        };
+    </script>
+</body>
+</html>

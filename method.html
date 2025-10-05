@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>通关方法</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url(通关方法.jpg) center/cover no-repeat;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width:100vw;
+        }
+        .method-modal {
+            position:fixed;
+            top:0;left:0;width:100vw;height:100vh;
+            display:flex;
+            flex-direction:row;
+            justify-content:center;
+            align-items:center;
+            z-index:9999;
+            background:rgba(0,0,0,0.5);
+            transition:background 0.5s;
+            gap:40px;
+        }
+        
+        .method-block {
+            position:relative;
+            width:400px;
+            min-height:200px;
+            box-shadow:0 8px 16px rgba(0,0,0,0.15);
+            border:rgb(70, 3, 3) 2px solid;
+            border-radius:8px;
+            display:flex;
+            flex-direction:row;
+            justify-content:center;
+            align-items:center;
+            padding:32px 24px 48px 24px;
+            background:url(通关方法.jpg) center/cover no-repeat;
+            transition:box-shadow 0.3s,background 0.5s;
+            overflow:hidden;
+        }
+        .method-content {
+            flex:1;
+            display:none;
+            flex-direction:column;
+            align-items:center;
+            animation:fadeIn 0.5s;
+        }
+        .method-title {
+            font-size:28px;
+            font-weight:bold;
+            color:#fff;
+            margin-bottom:18px;
+            text-align:center;
+            letter-spacing:2px;
+        }
+        .method-details {
+            display:flex;
+            flex-direction:column;
+            gap:40px;
+            width:100%;
+            margin-bottom:18px;
+        }
+/* 为什么？.method--detail-block 就会出现details在页面中间 背景为半透明黑色 而且html中根本没有method-detail-block 只有加了个后缀-modal的它 而且背景加在了details上 哦是因为js中设置了*/
+/* method-detail-block-modal控制的是details后面的block 没设置自然就透明 */
+        .method-detail-block {
+            background:url(通关方法.jpg) center/cover no-repeat;
+            border-radius:8px;
+            color:#fff;
+            padding:10px 16px;
+            font-size:18px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.18);
+            opacity:0;
+            transform:translateY(30px);
+            animation:detailFadeIn 0.5s forwards;
+        }
+
+        .method-btn {
+            background:rgba(0,0,0,0);
+            color:#fff;
+            border:#fff 2px solid;
+            border-radius:8px;
+            font-size:18px;
+            width:22px;height:22px;
+            cursor:pointer;
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            z-index:10000;
+            transition:background 0.3s;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        #method-prev {
+            left:1px;
+        }
+        #method-next {
+            right:1px;
+        }
+        .method-more {
+            position:absolute;
+            right:620px;
+            bottom:300px;
+            font-size:15px;
+            color:#fff;
+            opacity:1;
+            cursor:pointer;
+            transition:color 0.3s;
+        }
+        .method-more:hover {
+            color:#fff;
+        }
+
+        .method-detail-modal {
+            position:fixed;
+            top:0;left:0;width:100vw;height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:rgba(0,0,0,0.7);
+            z-index:10000;
+            padding:20px;
+        }
+
+        @keyframes fadeIn {
+            from {opacity:0;transform:scale(0.95);}
+            to {opacity:1;transform:scale(1);}
+        }
+        @keyframes detailFadeIn {
+            from {opacity:0;transform:translateY(30px);}
+            to {opacity:1;transform:translateY(0);}
+        }
+    </style>
+</head>
+<body>
+    <div class="method-modal" id="method-modal" style="display:flex;">
+        <div class="method-block" id="method-block">
+            <button id="method-prev" class="method-btn"><</button>
+            <div class="method-title"></div>
+            <button id="method-next" class="method-btn">></button>
+        </div>
+        <div class="method-more" id="method-more">点击了解具体方法</div>
+        <!---新增弹窗-->
+        <div class="method--detail-modal" id="method-detail-modal" style="display:none;">
+            <div class="method-detail-block-modal">
+                <div class="method-details"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const methods=[
+            {
+                title:"破解怪物弱点",
+                details:[
+                    "玫瑰傀儡：惧怕“纯银剪刀”，剪断核心藤蔓可使其彻底死亡",
+                    "糜烂员工：对“未被污染的人类血液”敏感，白柳利用唐二打的血液制作简易药剂。可暂时逼退怪物",
+                    "厂长幽灵：其力量源于塔维尔的心脏，破坏核心调香室的营养液装置，可削弱其攻击力"
+                ]
+            },
+            {
+                title:"利用NPC矛盾",
+                details:["策反被压迫的工人流民，让其协助收集玫瑰"]
+            },
+            {
+                title:"分工协作",
+                details:[
+                    "白柳利用“魔术空间”道具困住玫瑰盗贼，收集日记与报纸",
+                    "刘佳仪以“小女巫”身份接近NPC，获取工厂晋升资格"
+                ]
+            }
+        ];
+
+        let methodIndex=0;
+        const methodTitle=document.querySelector('.method-title');
+        const methodDetails=document.querySelector('.method-details');
+        const methodContent=document.querySelector('.method-content');
+        const methodPrev=document.getElementById('method-prev');
+        const methodNext=document.getElementById('method-next');
+        const methodMore=document.getElementById('method-more');
+
+        function renderMethod(index) {
+            methodTitle.textContent=methods[index].title;
+            methodTitle.style.display='block';
+            //按钮显示
+            methodPrev.style.display=index===0?'none':'block';
+            methodNext.style.display=index===methods.length-1?'none':'block';
+            //隐藏详情弹窗
+            document.getElementById('method-detail-modal').style.display='none';
+        }
+
+        //初始化
+        renderMethod(methodIndex);
+
+        methodTitle.onclick = function() {
+        // 显示详情弹窗
+        const modal = document.getElementById('method-detail-modal');
+        modal.style.display = 'flex';
+        // 渲染详情内容
+        const details = modal.querySelector('.method-details');
+        details.innerHTML = "";
+        methods[methodIndex].details.forEach((detail, i) => {
+            const block = document.createElement('div');
+            block.className = 'method-detail-block';
+            block.style.animationDelay = (i * 0.15) + 's';
+            block.textContent = detail;
+            details.appendChild(block);
+        });
+    };
+        document.getElementById('method-detail-modal').onclick=function(e) {
+            if (e.target===this) {
+                this.style.display='none';
+            }
+        };
+
+        methodPrev.onclick=function() {
+            if (methodIndex>0) {
+                methodIndex--;
+                renderMethod(methodIndex);
+            }
+        };
+
+        methodNext.onclick=function() {
+            if (methodIndex<methods.length-1) {
+                methodIndex++;
+                renderMethod(methodIndex);
+            }
+        };
+
+        methodMore.onclick=function() {
+            alert("点击内容即可");
+        };
+    </script>
+</body>
+</html>
